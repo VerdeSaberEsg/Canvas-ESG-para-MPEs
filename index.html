@@ -69,7 +69,7 @@
             <span class="text-xs sm:text-sm font-medium text-gray-700" id="percentage-environmental">0%</span>
           </div>
         </div>
-        
+
         <p class="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">Práticas para reduzir impacto ambiental</p>
 
         <!-- Itens -->
@@ -99,7 +99,7 @@
               </div>
             </div>
           </div>
-          
+
           <!-- Item: Gestão da Água -->
           <div class="bg-gray-50 p-3 sm:p-5 rounded-lg shadow-inner relative">
             <div class="flex items-center justify-between mb-2 sm:mb-3">
@@ -165,7 +165,7 @@
             <span class="text-xs sm:text-sm font-medium text-gray-700" id="percentage-social">0%</span>
           </div>
         </div>
-        
+
         <p class="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">Ações focadas em pessoas e comunidade</p>
 
         <!-- Itens -->
@@ -195,7 +195,7 @@
               </div>
             </div>
           </div>
-          
+
           <!-- Item: Desenvolvimento -->
           <div class="bg-gray-50 p-3 sm:p-5 rounded-lg shadow-inner relative">
             <div class="flex items-center justify-between mb-2 sm:mb-3">
@@ -261,7 +261,7 @@
             <span class="text-xs sm:text-sm font-medium text-gray-700" id="percentage-governance">0%</span>
           </div>
         </div>
-        
+
         <p class="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">Práticas de gestão e transparência</p>
 
         <!-- Itens -->
@@ -291,7 +291,7 @@
               </div>
             </div>
           </div>
-          
+
           <!-- Item: Conformidade -->
           <div class="bg-gray-50 p-3 sm:p-5 rounded-lg shadow-inner relative">
             <div class="flex items-center justify-between mb-2 sm:mb-3">
@@ -358,7 +358,7 @@
     feather.replace();
 
     // Estado dos itens concluídos
-    const completedItems = {};
+    let completedItems = {};
 
     // Definição das seções e itens
     const sections = {
@@ -448,7 +448,70 @@
       }
     };
 
-    // Atualizar o progresso de uma seção
+    // --- State Management & Rendering ---
+
+    const toggleButtons = document.querySelectorAll('.toggle-btn');
+
+    // Function to generate a unique key for an item from its button element
+    function getItemKey(button) {
+      const section = button.getAttribute('data-section');
+      const item = button.getAttribute('data-item');
+      const subtopic = button.getAttribute('data-subtopic');
+      return `${section}-${item}-${subtopic}`;
+    }
+
+    // Load state from localStorage or initialize from the initial HTML classes
+    function loadState() {
+      const savedState = localStorage.getItem('esgCanvasState');
+      if (savedState) {
+        completedItems = JSON.parse(savedState);
+      } else {
+        // If no saved state, initialize based on the default HTML
+        completedItems = {};
+        toggleButtons.forEach(button => {
+          const section = button.getAttribute('data-section');
+          const color = sections[section].color;
+          // A button is considered pre-selected if it has a colored background
+          if (button.classList.contains(`bg-${color}-100`)) {
+            const key = getItemKey(button);
+            completedItems[key] = true;
+          }
+        });
+      }
+    }
+
+    // Save the current state to localStorage
+    function saveState() {
+      localStorage.setItem('esgCanvasState', JSON.stringify(completedItems));
+    }
+
+    // Render the visual state of all buttons based on the `completedItems` object
+    function renderState() {
+      toggleButtons.forEach(button => {
+        const key = getItemKey(button);
+        const section = button.getAttribute('data-section');
+        const color = sections[section].color;
+        const isCompleted = !!completedItems[key];
+
+        // A more targeted way to reset classes to avoid breaking other styles.
+        // Remove all potentially conflicting classes before adding the correct ones.
+        const classesToRemove = ['bg-white', `border-${color}-500`, `bg-${color}-100`, 'border-gray-300', 'hover:border-gray-400'];
+        button.classList.remove(...classesToRemove);
+        button.innerHTML = '';
+
+        if (isCompleted) {
+          // Checked state: white background, colored border, check icon
+          button.classList.add('bg-white', `border-${color}-500`);
+          button.innerHTML = `<i data-feather="check-circle" class="text-${color}-500"></i>`;
+        } else {
+          // Unchecked state: gray border
+          button.classList.add('border-gray-300', 'hover:border-gray-400');
+        }
+      });
+      feather.replace(); // Re-render icons
+    }
+
+    // Update the progress bar and percentage for a specific section
     function updateProgress(sectionKey) {
       const section = sections[sectionKey];
       let total = 0;
@@ -469,40 +532,33 @@
       document.getElementById(`percentage-${sectionKey}`).textContent = `${percentage}%`;
     }
 
-    // Atualizar o progresso inicial
-    for (const sectionKey in sections) {
-      updateProgress(sectionKey);
+    // --- Initialization ---
+
+    // Main function to set up the application
+    function initialize() {
+      loadState();
+      renderState();
+      for (const sectionKey in sections) {
+        updateProgress(sectionKey);
+      }
     }
 
-    // Gerenciar cliques nos botões de toggle
-    const toggleButtons = document.querySelectorAll('.toggle-btn');
+    // --- Event Listeners ---
+
+    // Handle clicks on toggle buttons
     toggleButtons.forEach(button => {
       button.addEventListener('click', () => {
+        const key = getItemKey(button);
         const section = button.getAttribute('data-section');
-        const item = button.getAttribute('data-item');
-        const subtopic = button.getAttribute('data-subtopic');
-        const key = `${section}-${item}-${subtopic}`;
 
-        // Toggle estado
+        // Toggle the state
         completedItems[key] = !completedItems[key];
-        if (completedItems[key]) {
-          button.classList.add('bg-white');
-          button.classList.remove(`bg-${sections[section].color}-100`);
-          button.classList.add(`border-${sections[section].color}-500`);
-          // Adicionar ícone de check
-          button.innerHTML = `<i data-feather="check-circle" class="text-${sections[section].color}-500"></i>`;
-        } else {
-          button.classList.remove('bg-white');
-          button.classList.add(`bg-${sections[section].color}-100`);
-          button.classList.remove(`border-${sections[section].color}-500`);
-          // Remover ícone de check
-          button.innerHTML = '';
-        }
 
-        // Re-inicializar Feather Icons para renderizar novos ícones
-        feather.replace();
+        // Persist and re-render
+        saveState();
+        renderState(); // Re-render all buttons to ensure consistency
 
-        // Atualizar progresso
+        // Update progress bar
         updateProgress(section);
       });
     });
@@ -570,9 +626,9 @@
       };
       html2pdf().set(opt).from(element).save();
     });
+
+    // Initialize the application
+    initialize();
   </script>
 </body>
 </html>
-
-
-

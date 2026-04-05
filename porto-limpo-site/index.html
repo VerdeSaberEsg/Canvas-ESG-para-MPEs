@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Porto Limpo</title>
+  <meta name="description" content="Porto Limpo: presença digital simples, clara e profissional para apresentar a solução e gerar confiança." />
+  <style>
+    :root {
+      --bg: #020617;
+      --panel: rgba(255,255,255,0.06);
+      --panel-strong: #0f172a;
+      --text: #ffffff;
+      --muted: #cbd5e1;
+      --line: rgba(255,255,255,0.10);
+      --accent: #34d399;
+      --accent-dark: #052e27;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(52,211,153,0.16), transparent 25%),
+        radial-gradient(circle at left, rgba(59,130,246,0.12), transparent 22%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+    .hero { padding: 88px 0 64px; border-bottom: 1px solid var(--line); }
+    .badge {
+      display: inline-block; padding: 8px 14px; border-radius: 999px;
+      border: 1px solid rgba(52,211,153,0.25); background: rgba(52,211,153,0.12);
+      color: #a7f3d0; font-size: 14px;
+    }
+    h1 { font-size: clamp(38px, 6vw, 64px); line-height: 1.05; margin: 20px 0; max-width: 900px; }
+    .lead { max-width: 760px; color: var(--muted); font-size: 18px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+    .btn {
+      display: inline-block; padding: 14px 22px; border-radius: 18px; text-decoration: none;
+      font-weight: 700; transition: transform .2s ease, opacity .2s ease;
+    }
+    .btn:hover { transform: translateY(-1px); opacity: .96; }
+    .btn-primary { background: var(--accent); color: #052e16; }
+    .btn-secondary { border: 1px solid var(--line); color: var(--text); }
+    section { padding: 56px 0; }
+    .grid { display: grid; gap: 20px; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .card {
+      background: var(--panel); border: 1px solid var(--line); border-radius: 26px;
+      padding: 24px; backdrop-filter: blur(8px);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+    }
+    .card .icon {
+      width: 48px; height: 48px; display: grid; place-items: center;
+      border-radius: 16px; background: rgba(52,211,153,0.14); color: #a7f3d0; font-weight: 800;
+      margin-bottom: 16px;
+    }
+    h2, h3, h4 { margin: 0 0 12px; }
+    p { margin: 0; }
+    .muted { color: var(--muted); }
+    .alt { background: rgba(255,255,255,0.04); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .benefits {
+      background: var(--panel-strong); border: 1px solid var(--line); border-radius: 28px; padding: 28px;
+    }
+    .benefits ul { list-style: none; padding: 0; margin: 18px 0 0; }
+    .benefits li { display: flex; gap: 12px; align-items: flex-start; margin: 14px 0; color: #e2e8f0; }
+    .dot { width: 10px; height: 10px; background: var(--accent); border-radius: 999px; margin-top: 8px; flex: none; }
+    .cta {
+      background: linear-gradient(135deg, rgba(52,211,153,0.12), rgba(15,23,42,0.9));
+      border: 1px solid rgba(52,211,153,0.22); border-radius: 28px; padding: 32px;
+      display: flex; justify-content: space-between; gap: 18px; align-items: center; flex-wrap: wrap;
+    }
+    footer { padding: 24px 0 48px; color: #94a3b8; font-size: 14px; }
+    @media (max-width: 900px) {
+      .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .hero { padding-top: 72px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <span class="badge">Porto Limpo</span>
+      <h1>Uma presença digital simples, clara e pronta para vender valor.</h1>
+      <p class="lead">Um site de uma página para apresentar a Porto Limpo com linguagem objetiva, visual profissional e foco no que importa: explicar a solução, gerar confiança e abrir portas para novos clientes e parcerias.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#contato">Falar com a Porto Limpo</a>
+        <a class="btn btn-secondary" href="#solucao">Ver a solução</a>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="container grid grid-3">
+      <article class="card">
+        <div class="icon">01</div>
+        <h2>Diagnóstico rápido</h2>
+        <p class="muted">Entenda os principais gargalos operacionais, ambientais e comerciais com clareza visual e linguagem simples.</p>
+      </article>
+      <article class="card">
+        <div class="icon">02</div>
+        <h2>Solução prática</h2>
+        <p class="muted">Organize processos, indicadores e ações prioritárias em uma estrutura enxuta, direta e fácil de executar.</p>
+      </article>
+      <article class="card">
+        <div class="icon">03</div>
+        <h2>Impacto real</h2>
+        <p class="muted">Transforme eficiência, confiança e posicionamento em vantagem competitiva para crescer com consistência.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="solucao" class="alt">
+    <div class="container grid grid-2">
+      <div>
+        <p style="text-transform: uppercase; letter-spacing: .2em; color: #a7f3d0; font-size: 13px;">Solução</p>
+        <h3 style="font-size: clamp(28px, 4vw, 44px);">Um site enxuto, com cara de empresa séria e discurso afiado.</h3>
+        <p class="muted">Esta primeira versão funciona como uma vitrine digital: apresenta quem é a Porto Limpo, o problema que resolve, os diferenciais da solução e um caminho direto para contato. É uma base elegante, sem labirintos, pronta para evoluir.</p>
+      </div>
+      <div class="benefits">
+        <h4 style="color:#a7f3d0;">Benefícios imediatos</h4>
+        <ul>
+          <li><span class="dot"></span><span>Mais clareza na operação</span></li>
+          <li><span class="dot"></span><span>Comunicação simples com clientes</span></li>
+          <li><span class="dot"></span><span>Estrutura profissional para apresentar a solução</span></li>
+          <li><span class="dot"></span><span>Base preparada para futuras páginas, formulários e SEO</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="card" style="padding:32px; border-radius:32px; background: linear-gradient(135deg, rgba(15,23,42,1), rgba(30,41,59,1));">
+        <p style="text-transform: uppercase; letter-spacing: .2em; color: #a7f3d0; font-size: 13px;">Próximo passo</p>
+        <h3 style="font-size: clamp(28px, 4vw, 42px);">Depois desta base, dá para evoluir para algo mais forte.</h3>
+        <p class="muted">Podemos adicionar formulário, WhatsApp, seção de casos, perguntas frequentes, depoimentos, página institucional, blog e estrutura voltada para busca orgânica.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato">
+    <div class="container">
+      <div class="cta">
+        <div>
+          <h4 style="font-size: 30px; margin-bottom: 8px;">Porto Limpo</h4>
+          <p class="muted">Soluções com clareza, estrutura e posicionamento para transformar uma boa ideia em uma presença digital que trabalha por você.</p>
+        </div>
+        <a class="btn btn-primary" href="mailto:contato@portolimpo.com">contato@portolimpo.com</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">Versão simples da landing page da Porto Limpo.</div>
+  </footer>
+</body>
+</html>
